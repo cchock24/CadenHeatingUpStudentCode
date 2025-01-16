@@ -3,7 +3,7 @@
  * each day’s temperature is higher than on the previous day in that sequence.
  *
  * @author Zach Blick
- * @author YOUR NAME HERE
+ * @author Caden Chock
  */
 
 public class WeatherPatterns {
@@ -16,7 +16,25 @@ public class WeatherPatterns {
      */
     public static int longestWarmingTrend(int[] temperatures) {
         // TODO: Write your code here!
+        int[] runs = new int[temperatures.length];
+        int biggest = 0;
+        for(int i = 0; i < temperatures.length; i++){
+            runs[i] = checkPrevious(temperatures,runs,temperatures[i],i) + 1;
+            if(runs[i] > biggest){
+                biggest = runs[i];
+            }
+        }
+        return biggest;
+    }
 
-        return 0;
+    // Take Temperature and Day return day with smaller temperature and biggest run
+    public static int checkPrevious(int[] temperatures, int[] runs, int currentTemp, int day){
+        int biggest = 0;
+        for(int i = 0; i < day; i++){
+            if(temperatures[i] < currentTemp && runs[i] > biggest){
+                biggest = runs[i];
+            }
+        }
+        return biggest;
     }
 }
