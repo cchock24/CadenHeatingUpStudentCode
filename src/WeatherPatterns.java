@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * The class WeatherPatterns finds the longest span of days in which
  * each day’s temperature is higher than on the previous day in that sequence.
@@ -15,26 +17,53 @@ public class WeatherPatterns {
      * @return the longest run of days with increasing temperatures
      */
     public static int longestWarmingTrend(int[] temperatures) {
-        // TODO: Write your code here!
-        int[] runs = new int[temperatures.length];
+        ArrayList<Integer>[] list = new ArrayList[temperatures.length];
+        for(int i = 0; i < list.length; i++){
+           list[i] = new ArrayList<Integer>();
+        }
+        //Array of Saved Runs
+        int[] saved = new int[temperatures.length];
+        list = adjacencyList(list, temperatures);
         int biggest = 0;
         for(int i = 0; i < temperatures.length; i++){
-            runs[i] = checkPrevious(temperatures,runs,temperatures[i],i) + 1;
-            if(runs[i] > biggest){
-                biggest = runs[i];
+            int num = LongestPathTo(i, list, saved);
+            if(num > biggest){
+                biggest = num;
             }
         }
-        return biggest;
     }
 
-    // Take Temperature and Day return day with smaller temperature and biggest run
-    public static int checkPrevious(int[] temperatures, int[] runs, int currentTemp, int day){
-        int biggest = 0;
-        for(int i = 0; i < day; i++){
-            if(temperatures[i] < currentTemp && runs[i] > biggest){
-                biggest = runs[i];
+    //Create Adjacency List
+    public static ArrayList<Integer>[] adjacencyList(ArrayList<Integer>[] list, int[] temperatures){
+      for(int j = 0; j < list.length; j++) {
+          for (int i = j; i >= 0; i--) {
+              if(temperatures[i] < temperatures[j]){
+                  list[j].add(i);
+              }
+          }
+      }
+      return list;
+    }
+
+    public static int LongestPathTo(int day, ArrayList<Integer>[] list, int[] saved){
+        int len = 1;
+        // If Nothing points to Day
+        if(list[day].isEmpty()){
+            return len;
+        }
+        // Already Visited
+        if(saved[day] != 0){
+            return saved[day];
+        }
+        // Get Biggest Run
+        int biggest = 1;
+        for(int i = 0; i < list[day].size(); i++){
+            int num = LongestPathTo(list[day].get(i), list, saved);
+            if(num > biggest){
+                biggest = num;
             }
         }
-        return biggest;
+        saved[day] = biggest+len;
+        return biggest+len;
     }
 }

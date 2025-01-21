@@ -8,6 +8,7 @@ Name: YOUR NAME HERE
 | Jan 15  | 10:00-10:20 |                                                                  Finished it |
 | Jan 15  | 11:00-11:30 | Starting brainstorming and implementing ways to make the code more efficient |
 | Jan 16  | 10:00-10:40 |                     Idk how to make this more efficient T-T. This is so hard |
+| Jan 21  |  1:20-1:50  |                                 Started to work on making a adjacency matrix |
 
 
 To add a new row to the table, click into a cell and then hit shift-enter.
