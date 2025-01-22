@@ -19,7 +19,7 @@ public class WeatherPatterns {
     public static int longestWarmingTrend(int[] temperatures) {
         ArrayList<Integer>[] list = new ArrayList[temperatures.length];
         for(int i = 0; i < list.length; i++){
-           list[i] = new ArrayList<Integer>();
+            list[i] = new ArrayList<Integer>();
         }
         //Array of Saved Runs
         int[] saved = new int[temperatures.length];
@@ -31,18 +31,19 @@ public class WeatherPatterns {
                 biggest = num;
             }
         }
+        return biggest;
     }
 
     //Create Adjacency List
     public static ArrayList<Integer>[] adjacencyList(ArrayList<Integer>[] list, int[] temperatures){
-      for(int j = 0; j < list.length; j++) {
-          for (int i = j; i >= 0; i--) {
-              if(temperatures[i] < temperatures[j]){
-                  list[j].add(i);
-              }
-          }
-      }
-      return list;
+        for(int j = 0; j < list.length; j++) {
+            for (int i = j; i >= 0; i--) {
+                if(temperatures[i] < temperatures[j]){
+                    list[j].add(i);
+                }
+            }
+        }
+        return list;
     }
 
     public static int LongestPathTo(int day, ArrayList<Integer>[] list, int[] saved){
@@ -67,3 +68,4 @@ public class WeatherPatterns {
         return biggest+len;
     }
 }
+
