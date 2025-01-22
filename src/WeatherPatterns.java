@@ -17,6 +17,7 @@ public class WeatherPatterns {
      * @return the longest run of days with increasing temperatures
      */
     public static int longestWarmingTrend(int[] temperatures) {
+        // Adjacency List
         ArrayList<Integer>[] list = new ArrayList[temperatures.length];
         for(int i = 0; i < list.length; i++){
             list[i] = new ArrayList<Integer>();
@@ -25,6 +26,7 @@ public class WeatherPatterns {
         int[] saved = new int[temperatures.length];
         list = adjacencyList(list, temperatures);
         int biggest = 0;
+        //Find the Biggest Run
         for(int i = 0; i < temperatures.length; i++){
             int num = LongestPathTo(i, list, saved);
             if(num > biggest){
@@ -46,6 +48,7 @@ public class WeatherPatterns {
         return list;
     }
 
+    // Recursive Function to find Longest Run to Vertex
     public static int LongestPathTo(int day, ArrayList<Integer>[] list, int[] saved){
         int len = 1;
         // If Nothing points to Day
@@ -56,7 +59,7 @@ public class WeatherPatterns {
         if(saved[day] != 0){
             return saved[day];
         }
-        // Get Biggest Run
+        // Get Biggest Run from Paths
         int biggest = 1;
         for(int i = 0; i < list[day].size(); i++){
             int num = LongestPathTo(list[day].get(i), list, saved);
